@@ -1,0 +1,4 @@
+* text=auto eol=lf
+*.mp4 binary -text -diff
+*.jpg binary -text -diff
+*.pdf binary -text -diff

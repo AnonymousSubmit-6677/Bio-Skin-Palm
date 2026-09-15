@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="Anonymous project page for a paper under double-blind review.">
+</head>
+<body>
+<title>Bio-Skin-Palm</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<style>
+:root{
+  --ground:#FFFFFF; --panel:#F6F7F9;
+  --ink:#141618; --ink-2:#3F464C; --ink-3:#787F86;
+  --rule:#DDE1E5; --rule-strong:#C3C9CF;
+  --accent:#1F3F8F; --accent-ink:#FFFFFF;
+  --font-ui:'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-read:'Source Serif 4', Georgia, 'Times New Roman', serif;
+  --font-mono:'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#101317; --panel:#181C21;
+    --ink:#E7EAEE; --ink-2:#AEB6BE; --ink-3:#848C94;
+    --rule:#2A3037; --rule-strong:#3D444C;
+    --accent:#8FB2F4; --accent-ink:#101317;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#101317; --panel:#181C21;
+  --ink:#E7EAEE; --ink-2:#AEB6BE; --ink-3:#848C94;
+  --rule:#2A3037; --rule-strong:#3D444C;
+  --accent:#8FB2F4; --accent-ink:#101317;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--ground); color:var(--ink);
+  font-family:var(--font-read); font-size:17px; line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+img,video{max-width:100%; display:block}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+
+.wrap{max-width:820px; margin-inline:auto; padding-inline:clamp(16px,5vw,32px)}
+
+/* header */
+header{padding-block:clamp(44px,7vw,72px) clamp(24px,4vw,36px); text-align:center; border-bottom:1px solid var(--rule)}
+h1{
+  font-family:var(--font-ui); font-size:clamp(25px,4.2vw,36px); font-weight:600;
+  line-height:1.22; letter-spacing:-.015em; margin:0 auto; max-width:24ch; text-wrap:balance;
+}
+.authors{font-family:var(--font-ui); font-size:17px; margin:20px 0 0; color:var(--ink)}
+.venue{font-family:var(--font-ui); font-size:14px; margin:6px 0 0; color:var(--ink-3)}
+
+/* sections */
+section{padding-block:clamp(32px,5vw,46px); border-bottom:1px solid var(--rule)}
+section:last-of-type{border-bottom:0}
+h2{
+  font-family:var(--font-ui); font-size:19px; font-weight:600; letter-spacing:-.005em;
+  margin:0 0 14px; color:var(--ink);
+}
+h2 .tag{display:block; font-size:13px; font-weight:500; color:var(--ink-3); letter-spacing:.02em; margin-bottom:3px}
+p{margin:0 0 .85em; color:var(--ink-2)}
+p:last-child{margin-bottom:0}
+p strong{color:var(--ink); font-weight:600}
+
+/* bill of materials */
+.bomwrap{overflow-x:auto; margin-top:16px}
+table{width:100%; border-collapse:collapse; font-family:var(--font-ui); font-size:14.5px; min-width:480px}
+th{
+  text-align:right; font-weight:500; font-size:12px; letter-spacing:.06em; text-transform:uppercase;
+  color:var(--ink-3); padding:0 0 8px; border-bottom:1px solid var(--rule-strong);
+}
+th:first-child{text-align:left}
+td{text-align:right; padding:9px 0; border-bottom:1px solid var(--rule); color:var(--ink-2); font-variant-numeric:tabular-nums}
+td:first-child{text-align:left; color:var(--ink)}
+td+td{padding-left:16px}
+.part{font-family:var(--font-mono); font-size:13px}
+.role{display:block; font-size:13px; color:var(--ink-3); margin-top:1px}
+tr.total td{border-bottom:0; padding-top:13px; color:var(--ink); font-weight:600}
+.notes{margin:12px 0 0; padding:0; list-style:none}
+.notes li{font-family:var(--font-ui); font-size:13px; line-height:1.5; color:var(--ink-3); margin-top:4px}
+
+/* clips */
+.grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:18px; margin-top:20px}
+.grid--one{grid-template-columns:1fr}
+figure{margin:0}
+.frame{position:relative; background:#000; aspect-ratio:16/9; border:1px solid var(--rule)}
+.frame--pano{aspect-ratio:3400/1080}
+.frame video{width:100%; height:100%; object-fit:contain; background:#000}
+.miss{
+  position:absolute; inset:auto 10px 10px; margin:0; padding:7px 10px;
+  background:rgba(16,19,23,.88); color:#E7EAEE;
+  font-family:var(--font-mono); font-size:12px; line-height:1.4;
+}
+figcaption{
+  display:flex; flex-wrap:wrap; gap:4px 12px; align-items:baseline; justify-content:space-between;
+  font-family:var(--font-ui); font-size:13px; color:var(--ink-3); padding-top:7px;
+}
+figcaption .name{color:var(--ink)}
+.speed{display:inline-flex; gap:8px; align-items:baseline; font-family:var(--font-mono); font-size:12px}
+.speed button{
+  appearance:none; background:none; border:0; padding:0; cursor:pointer;
+  font:inherit; color:var(--ink-3); border-bottom:1px solid transparent;
+}
+.speed button:hover{color:var(--ink)}
+.speed button[aria-pressed="true"]{color:var(--ink); border-bottom-color:var(--ink)}
+.speed .div{color:var(--rule-strong)}
+
+.note{
+  font-family:var(--font-ui); font-size:14px; color:var(--ink-3);
+  border:1px dashed var(--rule-strong); padding:14px 16px; margin-top:20px;
+}
+.gridnote{font-family:var(--font-ui); font-size:13.5px; color:var(--ink-3); margin-top:14px}
+
+footer{border-top:1px solid var(--rule); padding-block:24px 36px}
+footer p{font-family:var(--font-ui); font-size:13px; line-height:1.55; color:var(--ink-3)}
+
+.previewbar{background:var(--accent); color:var(--accent-ink); font-family:var(--font-ui); font-size:13px; line-height:1.5}
+.previewbar .wrap{padding-block:9px}
+.previewbar p{margin:0; color:inherit}
+
+@media (max-width:640px){
+  .frame--pano{aspect-ratio:16/9}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none !important; animation:none !important}
+}
+</style>
+
+<div id="previewbar" class="previewbar" hidden>
+  <div class="wrap"><p><b>样本预览</b> —— 原速文件只装了 Participant 1 的前 30 秒，其余「1×」会提示未包含；温度实验两档都是完整原件。</p></div>
+</div>
+
+<div class="wrap">
+
+<header>
+  <h1>Bio-Skin-Palm: An Open-Source Multimodal Tactile Sensor for the Palm of Dexterous Robotic Hands</h1>
+  <p class="authors">Anonymous Authors</p>
+  <p class="venue">Paper under double-blind review</p>
+</header>
+
+<section id="abstract">
+  <h2>Abstract</h2>
+  <p>Palm tactile sensing is usually built as a larger, coarser copy of fingertip force sensing, and is usually evaluated only from the instant of contact onward. We argue that what distinguishes the palm is temporal rather than spatial: it is the one surface that faces the object across the entire interaction, so it should be asked questions the fingertips cannot answer at all.</p>
+  <p>Bio-Skin-Palm is a multimodal palm covering all three stages of a grasp — two 8 × 8 time-of-flight arrays for pre-contact geometry, a 15-channel Hall normal-force array with a triaxial shear channel and a 12-zone force-sensitive-resistor array for contact, and an actively heated thermal channel for post-contact material discrimination. Dense in-hand actuation makes Hall sensing magnetically fragile, so we pair a passive permalloy layer with FSR-gated cross-modal bias compensation, and report the resulting trade-off as measured rather than as hoped. Each stage is evaluated in isolation, and the three are evaluated together in a long-horizon, closed-loop grasping task.</p>
+</section>
+
+<section id="bom">
+  <h2>Bill of materials</h2>
+  <p>Every sensing channel comes from a catalogue part. The list covers the sensing assembly only; it excludes the dexterous hand, the arm and the host computer.</p>
+  <div class="bomwrap">
+    <table>
+      <thead>
+        <tr><th scope="col">Item</th><th scope="col">Qty</th><th scope="col">Unit</th><th scope="col">Subtotal</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="part">DRV5056A3QDBZR</span><span class="role">Linear Hall-effect sensor, one per normal-force channel</span></td>
+          <td>15</td><td>$0.69</td><td>$10.35</td>
+        </tr>
+        <tr>
+          <td><span class="part">VL53L5CXV0GC</span><span class="role">8 × 8 multizone time-of-flight ranging sensor</span></td>
+          <td>2</td><td>$3.23</td><td>$6.46</td>
+        </tr>
+        <tr>
+          <td><span class="part">Custom FSR layer</span><span class="role">Printed force-sensitive-resistor sheet, 12 zones</span></td>
+          <td>1</td><td>$4.55</td><td>$4.55</td>
+        </tr>
+        <tr>
+          <td><span class="part">ESP32-S3 board</span><span class="role">Acquisition and streaming</span></td>
+          <td>1</td><td>$3.69</td><td>$3.69</td>
+        </tr>
+        <tr>
+          <td><span class="part">Remaining PCBs</span><span class="role">Sensor substrate and interconnect</span></td>
+          <td>—</td><td>—</td><td>$2.06</td>
+        </tr>
+        <tr>
+          <td><span class="part">Everything else</span><span class="role">Magnets, permalloy, heater, passives, wiring, printed parts</span></td>
+          <td>—</td><td>—</td><td>≤ $3.00</td>
+        </tr>
+        <tr class="total">
+          <td>Total, single unit</td><td></td><td></td><td>≤ $30.11</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <ul class="notes">
+    <li>Single-unit prices in USD at the August 2026 exchange rate; no volume discount assumed.</li>
+    <li>The last row is an upper bound, so the total is a ceiling rather than a point estimate.</li>
+  </ul>
+</section>
+
+<section id="stage-1">
+  <h2><span class="tag">Stage 1 — Pre-contact</span>Vision-degraded teleoperation</h2>
+  <p>An external camera loses the object at the moment the hand closes around it, and an opaque bag removes the scene before that. Five operators teleoperated the hand into the bag using <strong>only the two palm ToF arrays</strong>, composited into the lower left of each clip: a 0–1000 mm panel for approach context and a 0–100 mm panel for the last few centimetres.</p>
+  <p>Across the five operators, all 36 objects were identified and 30 of 36 were lifted (83.3 %, 66.7–100 % per operator). Clips play at 10× by default; switch to 1× for the real pace of the search.</p>
+
+  <div class="grid">
+    <figure data-base="videos/participant_1" data-fast="10">
+      <div class="frame">
+        <video preload="none" controls playsinline poster="posters/participant_1.jpg" src="videos/participant_1_x10.mp4"></video>
+        <p class="miss" hidden></p>
+      </div>
+      <figcaption>
+        <span class="name">Participant 1 · 8:01</span>
+        <span class="speed" role="group" aria-label="Playback source, Participant 1">
+          <button type="button" id="p1-fast" data-rate="fast" aria-pressed="true">10×</button>
+          <span class="div">/</span>
+          <button type="button" id="p1-real" data-rate="real" aria-pressed="false">1×</button>
+        </span>
+      </figcaption>
+    </figure>
+
+    <figure data-base="videos/participant_2" data-fast="10">
+      <div class="frame">
+        <video preload="none" controls playsinline poster="posters/participant_2.jpg" src="videos/participant_2_x10.mp4"></video>
+        <p class="miss" hidden></p>
+      </div>
+      <figcaption>
+        <span class="name">Participant 2 · 8:41</span>
+        <span class="speed" role="group" aria-label="Playback source, Participant 2">
+          <button type="button" id="p2-fast" data-rate="fast" aria-pressed="true">10×</button>
+          <span class="div">/</span>
+          <button type="button" id="p2-real" data-rate="real" aria-pressed="false">1×</button>
+        </span>
+      </figcaption>
+    </figure>
+
+    <figure data-base="videos/participant_3" data-fast="10">
+      <div class="frame">
+        <video preload="none" controls playsinline poster="posters/participant_3.jpg" src="videos/participant_3_x10.mp4"></video>
+        <p class="miss" hidden></p>
+      </div>
+      <figcaption>
+        <span class="name">Participant 3 · 10:05</span>
+        <span class="speed" role="group" aria-label="Playback source, Participant 3">
+          <button type="button" id="p3-fast" data-rate="fast" aria-pressed="true">10×</button>
+          <span class="div">/</span>
+          <button type="button" id="p3-real" data-rate="real" aria-pressed="false">1×</button>
+        </span>
+      </figcaption>
+    </figure>
+
+    <figure data-base="videos/participant_4" data-fast="10">
+      <div class="frame">
+        <video preload="none" controls playsinline poster="posters/participant_4.jpg" src="videos/participant_4_x10.mp4"></video>
+        <p class="miss" hidden></p>
+      </div>
+      <figcaption>
+        <span class="name">Participant 4 · 5:02</span>
+        <span class="speed" role="group" aria-label="Playback source, Participant 4">
+          <button type="button" id="p4-fast" data-rate="fast" aria-pressed="true">10×</button>
+          <span class="div">/</span>
+          <button type="button" id="p4-real" data-rate="real" aria-pressed="false">1×</button>
+        </span>
+      </figcaption>
+    </figure>
+
+    <figure data-base="videos/participant_5" data-fast="10">
+      <div class="frame">
+        <video preload="none" controls playsinline poster="posters/participant_5.jpg" src="videos/participant_5_x10.mp4"></video>
+        <p class="miss" hidden></p>
+      </div>
+      <figcaption>
+        <span class="name">Participant 5 · 7:35</span>
+        <span class="speed" role="group" aria-label="Playback source, Participant 5">
+          <button type="button" id="p5-fast" data-rate="fast" aria-pressed="true">10×</button>
+          <span class="div">/</span>
+          <button type="button" id="p5-real" data-rate="real" aria-pressed="false">1×</button>
+        </span>
+      </figcaption>
+    </figure>
+  </div>
+  <p class="gridnote">Each clip is one uncut session. The external camera is for the reader only — the operator never saw it.</p>
+</section>
+
+<section id="stage-2">
+  <h2><span class="tag">Stage 2 — Contact</span>Force sensing under magnetic interference</h2>
+  <p>The closed loop reads Hall normal force directly to decide when to stop closing, so this stage has to show the reading stays trustworthy inside a hand full of servos. A passive permalloy layer flattens local field hot-spots, and FSR-gated cross-modal compensation removes the residual bias only while the corresponding zone reports no contact.</p>
+  <p>On the triaxial shear channel, which has no magnetically immune reference and therefore no active fallback, shielding is a net gain: static offset −36.7 % and dynamic RMS error −33.2 %. Across the 15-channel normal array it redistributes rather than removes the disturbance.</p>
+  <div class="note">Bench characterisation clip in preparation — this stage is currently reported through figures and tables in the paper.</div>
+</section>
+
+<section id="stage-3">
+  <h2><span class="tag">Stage 3 — Post-contact</span>Thermal material recognition</h2>
+  <p>Once size, shape and colour match, geometry stops discriminating. Three 60 mm cubes — machined metal, printed PLA, and the same PLA cube wrapped in 1 mm of paper — are indistinguishable to RGB and to the ToF point cloud alike. The palm presses each one, holds the contact for 10 s while the on-board heater maintains a temperature difference, and reads the <strong>local cooling rate</strong>.</p>
+  <p>Left: the contact sequence. Right: temperature change ΔT and local cooling rate against time, mean with spread, with the pre-contact baseline and the moment of contact marked.</p>
+  <div class="grid grid--one">
+    <figure data-base="videos/temperature" data-fast="5">
+      <div class="frame frame--pano">
+        <video preload="none" controls playsinline poster="posters/temperature.jpg" src="videos/temperature_x5.mp4"></video>
+        <p class="miss" hidden></p>
+      </div>
+      <figcaption>
+        <span class="name">Metal / PLA / paper, 1:19</span>
+        <span class="speed" role="group" aria-label="Playback source, thermal experiment">
+          <button type="button" id="t-fast" data-rate="fast" aria-pressed="true">5×</button>
+          <span class="div">/</span>
+          <button type="button" id="t-real" data-rate="real" aria-pressed="false">1×</button>
+        </span>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="closed-loop">
+  <h2><span class="tag">All three stages together</span>Long-horizon closed-loop grasping</h2>
+  <p>A scripted scan builds a point cloud, a locally deployed VLM counts and selects clusters, the palm descends until either ToF or Hall force fires the stopping criterion, and — for the two visually identical cubes — the thermal criterion chooses the target before the fingers close on it.</p>
+  <p>The box track succeeded in 18 of 20 trials (90.0 %) under the full criterion of grasp plus 30 cm lift; the cube track succeeded in 16 of 20 (80.0 %) under the partial criterion of correct material plus finger closure. The two criteria differ, so the rates are deliberately not merged.</p>
+  <div class="note">Closed-loop run clip in preparation.</div>
+</section>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <p>This page accompanies an anonymous submission under double-blind review. It carries no author, institution, funding or acknowledgement information; links to code and hardware files will be added after review. Operator identities are replaced throughout by Participant 1–5, and the video files carry no capture metadata.</p>
+  </div>
+</footer>
+
+<script>
+const PREVIEW = false; /*PREVIEW_FLAG*/
+
+if (PREVIEW) {
+  const bar = document.getElementById('previewbar');
+  if (bar) bar.hidden = false;
+}
+
+document.querySelectorAll('figure[data-base]').forEach(function (fig) {
+  const base = fig.dataset.base;
+  const fast = Number(fig.dataset.fast);
+  const video = fig.querySelector('video');
+  const miss = fig.querySelector('.miss');
+  const buttons = Array.from(fig.querySelectorAll('.speed button'));
+  const poster = video.getAttribute('poster');
+  let ratio = fast;
+
+  video.addEventListener('error', function () {
+    miss.textContent = video.src.indexOf('_x1.mp4') > -1
+      ? 'Original-speed file not available here.'
+      : 'This clip could not be loaded.';
+    miss.hidden = false;
+  });
+
+  buttons.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      if (btn.getAttribute('aria-pressed') === 'true') return;
+      const rate = btn.dataset.rate;
+      const nextRatio = rate === 'fast' ? fast : 1;
+      // keep the position in scene time: 3 s at 10x is 30 s at 1x
+      const sceneTime = (video.currentTime || 0) * ratio;
+      const wasPlaying = !video.paused && !video.ended;
+
+      buttons.forEach(function (b) { b.setAttribute('aria-pressed', String(b === btn)); });
+      miss.hidden = true;
+      ratio = nextRatio;
+
+      video.preload = 'metadata';
+      video.setAttribute('poster', poster);
+      video.src = rate === 'fast' ? base + '_x' + fast + '.mp4' : base + '_x1.mp4';
+
+      video.addEventListener('loadedmetadata', function onMeta() {
+        video.removeEventListener('loadedmetadata', onMeta);
+        const t = sceneTime / ratio;
+        if (isFinite(video.duration) && t > 0 && t < video.duration) video.currentTime = t;
+        if (wasPlaying) { const p = video.play(); if (p && p.catch) p.catch(function () {}); }
+      });
+      video.load();
+    });
+  });
+});
+</script>
+</body>
+</html>

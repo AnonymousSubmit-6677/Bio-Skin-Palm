@@ -1,0 +1,7 @@
+# Local only — these map Participant N back to real people. Never commit.
+ANONYMITY-CHECKLIST.md
+prepare_videos.ps1
+
+.DS_Store
+Thumbs.db
+desktop.ini

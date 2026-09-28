@@ -87,6 +87,19 @@ tr.total td{border-bottom:0; padding-top:13px; color:var(--ink); font-weight:600
 .notes{margin:12px 0 0; padding:0; list-style:none}
 .notes li{font-family:var(--font-ui); font-size:13px; line-height:1.5; color:var(--ink-3); margin-top:4px}
 
+/* sensor characterization */
+table.perf{min-width:560px}
+table.perf th, table.perf td{text-align:center}
+table.perf th:first-child, table.perf td:first-child{text-align:left}
+table.perf thead th{vertical-align:bottom; text-transform:none; letter-spacing:0; font-size:13px; font-weight:600; color:var(--ink)}
+table.perf thead th:first-child{font-size:12px; font-weight:500; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-3)}
+table.perf thead th span{display:block; font-weight:400; font-size:12px; color:var(--ink-3); margin-top:1px}
+table.perf td{padding-block:8px}
+table.perf td:first-child{padding-right:12px}
+table.perf .u{color:var(--ink-3)}
+table.perf tbody+tbody tr:first-child td{border-top:1px solid var(--rule-strong)}
+table.perf tbody:last-child tr:last-child td{border-bottom:0}
+
 /* clips */
 .grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:18px; margin-top:20px}
 .grid--one{grid-template-columns:1fr}
@@ -128,6 +141,10 @@ footer p{font-family:var(--font-ui); font-size:13px; line-height:1.55; color:var
 
 @media (max-width:640px){
   .frame--pano{aspect-ratio:16/9}
+  table.perf{min-width:0; font-size:13px}
+  table.perf td+td, table.perf th+th{padding-left:8px}
+  table.perf thead th{font-size:12px}
+  table.perf thead th span{font-size:11px}
 }
 @media (prefers-reduced-motion:reduce){
   *{transition:none !important; animation:none !important}
@@ -135,7 +152,7 @@ footer p{font-family:var(--font-ui); font-size:13px; line-height:1.55; color:var
 </style>
 
 <div id="previewbar" class="previewbar" hidden>
-  <div class="wrap"><p><b>样本预览</b> —— 原速文件只装了 Participant 1 的前 30 秒，其余「1×」会提示未包含；温度实验两档都是完整原件。</p></div>
+  <div class="wrap"><p><b>样本预览</b> —— 遥操作的原速只装了 Participant 1 的前 30 秒，闭环两段的「1×」未包含；Stage 2 和闭环两段在预览里是 720p 压缩版。正式站点上全是原片。</p></div>
 </div>
 
 <div class="wrap">
@@ -148,8 +165,7 @@ footer p{font-family:var(--font-ui); font-size:13px; line-height:1.55; color:var
 
 <section id="abstract">
   <h2>Abstract</h2>
-  <p>Palm tactile sensing is usually built as a larger, coarser copy of fingertip force sensing, and is usually evaluated only from the instant of contact onward. We argue that what distinguishes the palm is temporal rather than spatial: it is the one surface that faces the object across the entire interaction, so it should be asked questions the fingertips cannot answer at all.</p>
-  <p>Bio-Skin-Palm is a multimodal palm covering all three stages of a grasp — two 8 × 8 time-of-flight arrays for pre-contact geometry, a 15-channel Hall normal-force array with a triaxial shear channel and a 12-zone force-sensitive-resistor array for contact, and an actively heated thermal channel for post-contact material discrimination. Dense in-hand actuation makes Hall sensing magnetically fragile, so we pair a passive permalloy layer with FSR-gated cross-modal bias compensation, and report the resulting trade-off as measured rather than as hoped. Each stage is evaluated in isolation, and the three are evaluated together in a long-horizon, closed-loop grasping task.</p>
+  <p>Tactile sensing is critical for dexterous manipulation, yet most robotic hands remain largely fingertip-centric, leaving the palm, the hand’s largest continuous interaction surface, unsensed. Our insight is that palm sensing should complement rather than replicate fingertip sensing by providing multimodal perception throughout the interaction lifecycle: pre-contact, contact, and post-contact. We present Bio-Skin-Palm, an open-source, cost-effective multimodal palm sensor for dexterous hands. Its 5.1mm-thick layered structure integrates four sensing modalities: fifteen single-axis Hall channels for distributed normal force, a triaxial Hall sensor for global shear force, two time-of-flight arrays for pre-contact proximity and coarse geometry, and a heater--thermistor pair for active thermal perception. To improve electromagnetic robustness, a permalloy layer passively homogenizes external magnetic fields, while an overlaid force-sensitive resistor layer enables active compensation of residual Hall-sensor bias. The resulting sensor provides 0-5N measurement ranges for both normal and shear force. Passive shielding reduces static offset and dynamic RMS error up to 36.7%, while active compensation reduces Hall-sensor RMSE by about 75%. Integrated with a LEAP Hand, Bio-Skin-Palm enables RGB-free teleoperated retrieval from an opaque duffel bag and thermal material discrimination, both achieving over 88% success. An autonomous closed-loop experiment further demonstrates its potential for long-horizon manipulation involving heterogeneous sensing modalities. With a fabrication cost below 30USD, Bio-Skin-Palm provides an affordable and open-source platform for multimodal palm sensing in dexterous manipulation.</p>
 </section>
 
 <section id="bom">
@@ -197,10 +213,51 @@ footer p{font-family:var(--font-ui); font-size:13px; line-height:1.55; color:var
   </ul>
 </section>
 
+<section id="characterization">
+  <h2>Sensor characterization</h2>
+  <p>Force-sensing channels of the assembled palm.</p>
+  <div class="bomwrap">
+    <table class="perf">
+      <thead>
+        <tr>
+          <th scope="col">Metric</th>
+          <th scope="col">Hall normal<span>15 ch · 0–5 N</span></th>
+          <th scope="col">FSR<span>12 ch · 0–10 N</span></th>
+          <th scope="col">Triaxial shear<span>MLX90393 · 0–5 N</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Noise floor, raw ADC to force <span class="u">(N)</span></td><td colspan="3">&lt; 0.068</td></tr>
+        <tr><td>Min. detectable force, after calibration <span class="u">(N)</span></td><td>&lt; 0.15</td><td>&lt; 0.25</td><td>&lt; 0.15</td></tr>
+      </tbody>
+      <tbody>
+        <tr><td>Step response, before filter <span class="u">(ms)</span></td><td colspan="2">≈ 7</td><td>≈ 30</td></tr>
+        <tr><td>End-to-end latency <span class="u">(ms)</span></td><td>&lt; 22</td><td>&lt; 22</td><td>&lt; 86</td></tr>
+        <tr><td>Frame rate <span class="u">(Hz)</span></td><td>500</td><td>500</td><td>100</td></tr>
+      </tbody>
+      <tbody>
+        <tr><td>Hysteresis <span class="u">(% FS)</span></td><td>4.34</td><td>4.75</td><td>11.85</td></tr>
+        <tr><td>Adjacent-channel crosstalk <span class="u">(% FS)</span></td><td>4.85</td><td>2.78</td><td>—</td></tr>
+        <tr><td>MAE <span class="u">(N)</span></td><td>0.246</td><td>0.799</td><td>0.259</td></tr>
+        <tr><td>NMAE <span class="u">(% FS)</span></td><td>4.92</td><td>7.99</td><td>5.17</td></tr>
+        <tr><td>RMSE <span class="u">(N)</span></td><td>0.306</td><td>0.993</td><td>0.319</td></tr>
+      </tbody>
+      <tbody>
+        <tr><td>Mean taxel pitch <span class="u">(cm)</span></td><td>2.32</td><td>—</td><td>—</td></tr>
+        <tr><td>Thickness <span class="u">(mm)</span></td><td colspan="3">5.1</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <ul class="notes">
+    <li>% FS is relative to each channel's full scale: 5 N for Hall and shear, 10 N for FSR.</li>
+    <li>A value spanning several columns applies to each of them. — not applicable.</li>
+  </ul>
+</section>
+
 <section id="stage-1">
   <h2><span class="tag">Stage 1 — Pre-contact</span>Vision-degraded teleoperation</h2>
   <p>An external camera loses the object at the moment the hand closes around it, and an opaque bag removes the scene before that. Five operators teleoperated the hand into the bag using <strong>only the two palm ToF arrays</strong>, composited into the lower left of each clip: a 0–1000 mm panel for approach context and a 0–100 mm panel for the last few centimetres.</p>
-  <p>Across the five operators, all 36 objects were identified and 30 of 36 were lifted (83.3 %, 66.7–100 % per operator). Clips play at 10× by default; switch to 1× for the real pace of the search.</p>
+  <p>Across the five operators, 30 of 34 attempts succeeded (88.2 %; 66.7–100 % per operator). Clips play at 10× by default; switch to 1× for the real pace of the search.</p>
 
   <div class="grid">
     <figure data-base="videos/participant_1" data-fast="10">
@@ -285,7 +342,16 @@ footer p{font-family:var(--font-ui); font-size:13px; line-height:1.55; color:var
   <h2><span class="tag">Stage 2 — Contact</span>Force sensing under magnetic interference</h2>
   <p>The closed loop reads Hall normal force directly to decide when to stop closing, so this stage has to show the reading stays trustworthy inside a hand full of servos. A passive permalloy layer flattens local field hot-spots, and FSR-gated cross-modal compensation removes the residual bias only while the corresponding zone reports no contact.</p>
   <p>On the triaxial shear channel, which has no magnetically immune reference and therefore no active fallback, shielding is a net gain: static offset −36.7 % and dynamic RMS error −33.2 %. Across the 15-channel normal array it redistributes rather than removes the disturbance.</p>
-  <div class="note">Bench characterisation clip in preparation — this stage is currently reported through figures and tables in the paper.</div>
+  <div class="grid grid--one">
+    <figure>
+      <div class="frame">
+        <video preload="none" controls playsinline poster="posters/stage2_contact.jpg" src="videos/stage2_contact.mp4"></video>
+      </div>
+      <figcaption>
+        <span class="name">Hall and FSR normal force, shear, and FG-MBC off / on under a hand-held magnet · 0:45</span>
+      </figcaption>
+    </figure>
+  </div>
 </section>
 
 <section id="stage-3">
@@ -314,7 +380,38 @@ footer p{font-family:var(--font-ui); font-size:13px; line-height:1.55; color:var
   <h2><span class="tag">All three stages together</span>Long-horizon closed-loop grasping</h2>
   <p>A scripted scan builds a point cloud, a locally deployed VLM counts and selects clusters, the palm descends until either ToF or Hall force fires the stopping criterion, and — for the two visually identical cubes — the thermal criterion chooses the target before the fingers close on it.</p>
   <p>The box track succeeded in 18 of 20 trials (90.0 %) under the full criterion of grasp plus 30 cm lift; the cube track succeeded in 16 of 20 (80.0 %) under the partial criterion of correct material plus finger closure. The two criteria differ, so the rates are deliberately not merged.</p>
-  <div class="note">Closed-loop run clip in preparation.</div>
+  <div class="grid">
+    <figure data-base="videos/closedloop_box" data-fast="var">
+      <div class="frame">
+        <video preload="none" controls playsinline poster="posters/closedloop_box.jpg" src="videos/closedloop_box_fast.mp4"></video>
+        <p class="miss" hidden></p>
+      </div>
+      <figcaption>
+        <span class="name">Box track · 1:38</span>
+        <span class="speed" role="group" aria-label="Playback source, box track">
+          <button type="button" id="cl-box-fast" data-rate="fast" aria-pressed="true">sped up</button>
+          <span class="div">/</span>
+          <button type="button" id="cl-box-real" data-rate="real" aria-pressed="false">1×</button>
+        </span>
+      </figcaption>
+    </figure>
+
+    <figure data-base="videos/closedloop_cube" data-fast="var">
+      <div class="frame">
+        <video preload="none" controls playsinline poster="posters/closedloop_cube.jpg" src="videos/closedloop_cube_fast.mp4"></video>
+        <p class="miss" hidden></p>
+      </div>
+      <figcaption>
+        <span class="name">Cube track, metal target · 4:02</span>
+        <span class="speed" role="group" aria-label="Playback source, cube track">
+          <button type="button" id="cl-cube-fast" data-rate="fast" aria-pressed="true">sped up</button>
+          <span class="div">/</span>
+          <button type="button" id="cl-cube-real" data-rate="real" aria-pressed="false">1×</button>
+        </span>
+      </figcaption>
+    </figure>
+  </div>
+  <p class="gridnote">The default cut speeds up the slow segments of each run; switch to 1× for the full run in real time.</p>
 </section>
 
 </div>
@@ -335,7 +432,8 @@ if (PREVIEW) {
 
 document.querySelectorAll('figure[data-base]').forEach(function (fig) {
   const base = fig.dataset.base;
-  const fast = Number(fig.dataset.fast);
+  const variable = fig.dataset.fast === 'var';
+  const fast = variable ? 1 : Number(fig.dataset.fast);
   const video = fig.querySelector('video');
   const miss = fig.querySelector('.miss');
   const buttons = Array.from(fig.querySelectorAll('.speed button'));
@@ -354,8 +452,9 @@ document.querySelectorAll('figure[data-base]').forEach(function (fig) {
       if (btn.getAttribute('aria-pressed') === 'true') return;
       const rate = btn.dataset.rate;
       const nextRatio = rate === 'fast' ? fast : 1;
-      // keep the position in scene time: 3 s at 10x is 30 s at 1x
-      const sceneTime = (video.currentTime || 0) * ratio;
+      // keep the position in scene time: 3 s at 10x is 30 s at 1x.
+      // A partially sped-up cut has no fixed ratio, so it restarts from 0.
+      const sceneTime = variable ? 0 : (video.currentTime || 0) * ratio;
       const wasPlaying = !video.paused && !video.ended;
 
       buttons.forEach(function (b) { b.setAttribute('aria-pressed', String(b === btn)); });
@@ -364,7 +463,9 @@ document.querySelectorAll('figure[data-base]').forEach(function (fig) {
 
       video.preload = 'metadata';
       video.setAttribute('poster', poster);
-      video.src = rate === 'fast' ? base + '_x' + fast + '.mp4' : base + '_x1.mp4';
+      video.src = rate === 'fast'
+        ? (variable ? base + '_fast.mp4' : base + '_x' + fast + '.mp4')
+        : base + '_x1.mp4';
 
       video.addEventListener('loadedmetadata', function onMeta() {
         video.removeEventListener('loadedmetadata', onMeta);
